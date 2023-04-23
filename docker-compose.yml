@@ -1,0 +1,29 @@
+
+version: "4"
+
+services:
+
+  server:
+    build: server/
+
+    command: python ./app.py
+
+    ports:
+      - 3000:3000
+
+  # Второй сервис (контейнер): клиент.
+  # Этот сервис назван 'client'.
+
+  client:
+
+    build: client/
+
+    command: python ./client.py
+
+    network_mode: host
+
+    ports:
+      - 3000:8000
+
+    depends_on:
+      - server
